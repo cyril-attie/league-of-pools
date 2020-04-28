@@ -1,3 +1,4 @@
+
 # league-of-pools
 DeFi game to place money in liquidity pools and play with the interest by defying each other
 
@@ -30,27 +31,27 @@ If the victim has armor points, instead of losing the full amount of attack poin
 
 ## IMPLEMENTATION
 
-**2 options**
-1. The user deposits in our contract he gets some tokens that represent his balance of a particular item in which our contract is invested. (risky)
+Tokens equivalent to pools: 
 
-2. Intermediary contract that piggybacks a low fee wtihdrawing the money from the game. 
+Similar to aTokens and Uniswap pool shares we'll provide users with LOPtokens that correspond to each investment vehicle. 
 
-3. Our contract is just a relayer that channels the user investment towards the DeFi platforms and contains a handful of view functions calls to DeFi contracts. (simple)
+example: 300 LOP_UNISWAP_WETH_DAI == Uniswap pool. On new desposit x, the user get x/Up newly minted units of LOP_UNISWAP_WETH_DAI where x is the deposit and Up is the Uniswap pool value. On redemption of x LOPs_Uniswap the user gets x/(total outstanding LOPs_Uniswap)*Up where Up is the uniswap pool value. 
 
-Add an option to put earned interest individually in pool together.
+When burning the tokens we take a small fee that goes to the LOP ERC20 address and that's a governance token. 
 
 # UX
 
 The user appears in a 2D world where there are castles
 
 # TODO
+
 create storage contract
-extract info from thegraph by passing a public address
+extract storage info from thegraph by passing the public address
 list all users with their liquidity pool profiles including castle value and soldiers //ALLOWS TO LIST CASTLES 
 see how much liquidity profile thorugh the graph
 users can refresh their profile once a day 
 soldiers can attack only once per day
-
+add reentrancy guard see contracts/utils/address.sol
 
 1. Front call LOP.sol contract to query users addresses, current_deposit_value and refresh_timestamp
 2. Front calls the Graph to query user info on liquidity pools for 10~20 users to be displayed
@@ -58,18 +59,4 @@ soldiers can attack only once per day
 
 
 
-let defense_style = default_defense_style ? default_defense_style : 0; 
 
-user {
-    address 
-    tipo 'pepito'
-    initial_deposit
-    initial_timestamp
-    refresh_deposit_value
-    refresh_timestamp
-    attack_points     //one soldier represents one wei 
-    armor_points
-    pool_together_points
-    pool_together_points_clan
-    defense_style : a (not visible)
-}
