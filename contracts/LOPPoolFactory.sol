@@ -6,6 +6,7 @@ import "node_modules/@openzeppelin/contracts/access/Ownable.sol";
 contract LOPPoolFactory is Ownable {
 
     address[] public allPools;
+    mapping (address => bytes32);
     bytes32[] public poolProviders;
     mapping(bytes32 => bool) public poolProviderIsActive; //pool providers like aave, compound... uniswap, balancer
     mapping(bytes32 => address) public templateAddressFor; 
@@ -38,7 +39,7 @@ contract LOPPoolFactory is Ownable {
     function createPool(
         bytes32 _poolProvider,
         address _underlyingAddress,
-        address _underlyingAcceptedCurrency
+        address _underlyingAcceptedCurrency 
     ) external onlyOwner returns (address pool) {
         require(
             _underlyingAddress != address(0),
@@ -53,12 +54,10 @@ contract LOPPoolFactory is Ownable {
         // assembly {
         //     pool := create2(0, add(bytecode, 32), mload(bytecode), salt)
         // }
-        if 
-        ILOPPool(pool).initialize(
-            _underlyingAddress,
+        address pool = ILOPPoolProviderFactory(getPool[_poolProvider]).createPool(
             _underlyingAcceptedCurrency
         );
-        getPool[underlyingAddress] = pool;
+        getPool[_poolProvider][_underlyingAcceptedCurrency] = pool;
         allPools.push(pool);
         emit PoolCreated(_underlyingAddress, pool, allPools.length);
     }

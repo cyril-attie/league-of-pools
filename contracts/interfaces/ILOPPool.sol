@@ -5,7 +5,6 @@ import "node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol";
 //@title LOP pool interface
 interface ILOPPool {
 //@dev the factory contract address and initialization function of the pool
-    function factory() external view returns (address);
     function initialize(address, address) external;
 //---------------------------------------------------------
 //@dev Mint and burn interface through deposit() and withdraw() to the pool

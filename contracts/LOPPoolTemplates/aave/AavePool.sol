@@ -96,4 +96,9 @@ contract LOPAave is ILOPPool, ERC20 {
         IERC20(underlyingAsset).transfer(_msgSender(), underlyingAmount);
         emit WithdrawalCompleted(_msgSender(), _amount);
     }
+//--------------------------------------
+// TODO special aave pool functionality to redirect interest to the clan's pooltogether-pod 
+//--------------------------------------
+
 }
+

@@ -1,2 +1,1 @@
-- make the front check the lending pool address of aave and update it in our contract if it is not correct before each deposit to aave
 - subscribe to this event to confirm deposit has been done https://github.com/aave/aave-protocol/blob/13f00958cfac4eaa916555276d243a8e04d40157/contracts/lendingpool/LendingPool.sol#L320
